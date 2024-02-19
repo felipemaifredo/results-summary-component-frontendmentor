@@ -1,94 +1,68 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import "./page.style.css";
+import reacIcon from "@/results-summary-component-main/images/icon-reaction.svg"
+import memoIcon from "@/results-summary-component-main/images/icon-memory.svg"
+import verbIcon from "@/results-summary-component-main/images/icon-verbal.svg"
+import visuIcon from "@/results-summary-component-main/images/icon-visual.svg"
+import Image from "next/image"
+
+const summaryData = [
+  { title: "Reaction", icon: reacIcon, note: "80", color: "red" },
+  { title: "Memory", icon: memoIcon, note: "92", color: "yellow" },
+  { title: "Verbal", icon: verbIcon, note: "61", color: "green" },
+  { title: "Visual", icon: visuIcon, note: "72", color: "blue" },
+]
 
 export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+
+  const RenderSummary = (props) => {
+    const { title, icon, note, color } = props
+
+    return (
+      <div className={`summary-item ${color}`}>
+        <div className="first-item-summary">
+          <Image 
+            src={icon}
+          />
+          <p className="summary-title">{title}</p>
+        </div>
+        <div className="summary-note-box">
+          <p className="summary-note">{note}</p>
+          <p className="summary-max-note">/ 100</p>
         </div>
       </div>
+    )
+  }
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+  return (
+    <main>
+      <div className="container">
+        <div className="left-side-container">
+          <p>Your Result</p>
+          <div className="result-box">
+            <p className="result">76</p>
+            <p className="max">of 100</p>
+          </div>
+          <p className="title-result">Great</p>
+          <p className="description-result">You scored higher than 65% of the people who have taken these tests.</p>
+        </div>
+        <div className="right-side-container">
+          <p>Summary</p>
+          <div className="summary-container">
+            {summaryData.map((smItem) => (
+              <RenderSummary 
+                title={smItem.title}
+                note={smItem.note}
+                icon={smItem.icon}
+                color={smItem.color}
+              />
+            ))}
+          </div>
+          <div className="btn-box">
+            <button>
+              Continue
+            </button>
+          </div>
+        </div>
       </div>
     </main>
   );
